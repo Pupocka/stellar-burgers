@@ -1,21 +1,21 @@
 import { getIngredientsApi } from '@api';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
-export const getIngredients = createAsyncThunk(
-  'ingredients/getAll',
-  async () => await getIngredientsApi()
+export const getIngredients = createAsyncThunk('ingredients/getAll', async () =>
+  getIngredientsApi()
 );
 
 type TIngredientsState = {
   ingredients: Array<TIngredient>;
   loading: boolean;
-  error?: string | null;
+  error: string | null;
 };
 
 const initialState: TIngredientsState = {
   ingredients: [],
-  loading: false
+  loading: true,
+  error: null
 };
 
 export const ingredientsSlice = createSlice({
@@ -23,24 +23,27 @@ export const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    getIngredientsSelector: (state) => state
+    IngredientsSelector: (state) => state.ingredients,
+    loadingSelector: (state) => state.loading
   },
   extraReducers: (builder) => {
     builder
       .addCase(getIngredients.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
-      .addCase(getIngredients.rejected, (state, action) => {
+      .addCase(getIngredients.rejected, (state) => {
         state.loading = false;
-        state.error = action.error.message;
       })
-      .addCase(getIngredients.fulfilled, (state, action) => {
-        state.loading = false;
-        state.ingredients = action.payload;
-      });
+      .addCase(
+        getIngredients.fulfilled,
+        (state, action: PayloadAction<TIngredient[]>) => {
+          state.loading = false;
+          state.ingredients = action.payload;
+        }
+      );
   }
 });
 
 export const ingredientsReducer = ingredientsSlice.reducer;
-export const { getIngredientsSelector } = ingredientsSlice.selectors;
+export const { IngredientsSelector, loadingSelector } =
+  ingredientsSlice.selectors;

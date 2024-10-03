@@ -20,10 +20,9 @@ import {
   useNavigate,
   useParams
 } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
-import { useDispatch } from '../../services/store';
 
 const App = () => {
   const location = useLocation();
@@ -35,69 +34,56 @@ const App = () => {
     dispatch(getIngredients());
   }, []);
 
-  const background = location.state?.background;
+  // const background = location.state?.background;
 
   return (
-    <>
-      <div className={styles.app}>
-        <AppHeader />
-        <Routes location={background || location}>
-          <Route path='/' element={<ConstructorPage />} />
-          <Route path='/feed' element={<Feed />} />
-
-          <Route element={<ProtectedRoute onlyUnAuth />}>
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/forgot-password' element={<ForgotPassword />} />
-          </Route>
-          <Route element={<ProtectedRoute />}>
-            <Route path='/reset-password' element={<ResetPassword />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='orders' element={<ProfileOrders />} />
-          </Route>
-          <Route path='*' element={<NotFound404 />} />
-        </Routes>
-        {background && (
-          <Routes>
-            <Route
-              path='/feed/:number'
-              element={
-                <Modal
-                  title={`Информация о заказе`}
-                  onClose={() => navigate(-1)}
-                >
-                  <OrderInfo />
-                </Modal>
-              }
-            />
-            <Route
-              path='/ingredients/:id'
-              element={
-                <Modal
-                  title={`Детали ингредиента`}
-                  onClose={() => navigate(-1)}
-                >
-                  <IngredientDetails />
-                </Modal>
-              }
-            />
-            <Route
-              path='/profile/orders/:number'
-              element={
-                <ProtectedRoute>
-                  <Modal
-                    title={`#${location.pathname.split('/')[3]}`}
-                    onClose={() => navigate(-1)}
-                  >
-                    <OrderInfo />
-                  </Modal>
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        )}
-      </div>
-    </>
+    <div className={styles.app}>
+      <AppHeader />
+      <Routes>
+        <Route path='/' element={<ConstructorPage />} />
+        <Route path='/feed' element={<Feed />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route path='*' element={<NotFound404 />} />
+        <Route
+          path='/feed/:number'
+          element={
+            <Modal
+              title={'OrderInfo'}
+              onClose={() => console.log('OrderInfo modal')}
+            >
+              <OrderInfo />
+            </Modal>
+          }
+        />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <Modal
+              title={'IngredientDetails'}
+              onClose={() => console.log('IngredientDetails modal')}
+            >
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <Modal
+              title={'OrderInfo'}
+              onClose={() => console.log('OrderInfo modal')}
+            >
+              <OrderInfo />
+            </Modal>
+          }
+        />
+      </Routes>
+    </div>
   );
 };
 
