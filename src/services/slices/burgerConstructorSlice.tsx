@@ -8,7 +8,7 @@ const initialState: TBurgerConstructorState = {
   ingredients: []
 };
 export const burgerConstructorSlice = createSlice({
-  name: 'constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     addIngredient: (state, action: PayloadAction<TIngredient>) => {
@@ -27,4 +27,4 @@ export const burgerConstructorSlice = createSlice({
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
 export const { addIngredient, removeIngredient } =
   burgerConstructorSlice.actions;
-export const burgerConstructorSelector = burgerConstructorSlice.selectors;
+export const { burgerConstructorSelector } = burgerConstructorSlice.selectors;
