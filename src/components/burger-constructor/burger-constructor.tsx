@@ -6,20 +6,27 @@ import { burgerConstructorSelector } from '../../services/slices/burgerConstruct
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const burgerConstructor = useSelector(burgerConstructorSelector);
-  const constructorItems = {
-    bun: burgerConstructor.ingredients
-      .filter((item) => item.type === 'bun')
-      .pop(),
-    ingredients: burgerConstructor.ingredients.filter(
-      (item) => item.type !== 'bun'
-    )
-  };
+  const constructorItems = useSelector(burgerConstructorSelector);
+  // const constructorItems = {
+  //   bun: burgerConstructor.constructorItems.ingredients
+  //     .filter((item) => item.type === 'bun')
+  //     .pop(),
+  //   ingredients: burgerConstructor.ingredients.filter(
+  //     (item) => item.type !== 'bun'
+  //   )
+  // };
 
   const orderRequest = false;
 
   const orderModalData = null;
-
+  const stringBurger = (
+    bunId: string,
+    ingredients: TConstructorIngredient[]
+  ) => {
+    let result: string[];
+    const arr: string[] = ingredients.map((ingredient) => ingredient._id);
+    return (result = [bunId, ...arr, bunId]);
+  };
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
   };

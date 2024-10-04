@@ -1,30 +1,59 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { TIngredient } from '@utils-types';
+import { orderBurgerApi } from '@api';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { TIngredient, TOrder } from '@utils-types';
+
+export const getOrderByNumber = createAsyncThunk(
+  'burgerConstructor/getOrderByNumber',
+  async (data) => getOrderByNumberApi(data)
+);
+
+export const orderBurger = createAsyncThunk(
+  'burgerConstructor/orderBurger',
+  async (data: string[]) => orderBurgerApi(data)
+);
 
 type TBurgerConstructorState = {
-  ingredients: Array<TIngredient>;
+  constructorItems: {
+    bun?: {
+      price: number;
+      _id: string;
+    };
+    ingredients: Array<TIngredient>;
+  };
+  orderRequest: boolean;
+  orderModalData: TOrder | null;
+  orderByNumber?: TOrder | null;
 };
 const initialState: TBurgerConstructorState = {
-  ingredients: []
+  constructorItems: {
+    ingredients: []
+  },
+  orderRequest: false,
+  orderModalData: null
 };
+
 export const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   reducers: {
     addIngredient: (state, action: PayloadAction<TIngredient>) => {
-      state.ingredients.push(action.payload);
+      state.constructorItems.ingredients.push(action.payload);
     },
     removeIngredient: (state, action: PayloadAction<TIngredient>) => {
-      state.ingredients = state.ingredients.filter(
+      state.constructorItems.ingredients = state.constructorItems.ingredients.filter(
         (item) => item._id !== action.payload._id
       );
     }
   },
   selectors: {
-    burgerConstructorSelector: (state) => state
+    burgerConstructorSelector: (state) => state.constructorItems
   }
 });
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
 export const { addIngredient, removeIngredient } =
   burgerConstructorSlice.actions;
 export const { burgerConstructorSelector } = burgerConstructorSlice.selectors;
+function getOrderByNumberApi(data: void): any {
+  throw new Error('Function not implemented.');
+}
+

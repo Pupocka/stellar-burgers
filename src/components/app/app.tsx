@@ -64,7 +64,7 @@ const App = () => {
           path='/ingredients/:id'
           element={
             <Modal
-              title={'IngredientDetails'}
+              title={'Детали ингредиента'}
               onClose={() => console.log('IngredientDetails modal')}
             >
               <IngredientDetails />
