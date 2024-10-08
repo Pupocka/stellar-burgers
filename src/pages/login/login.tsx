@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch } from '../../services/store';
 import { loginUser } from '../../services/slices/userSlice';
