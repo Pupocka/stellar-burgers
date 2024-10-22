@@ -8,8 +8,8 @@ import {
   orderModalDataSelector,
   orderRequestSelector,
   setOrderModalData
-} from '../../services/slices/burgerConstructorSlice';
-import { userSelector } from '../../services/slices/userSlice';
+} from '../../services/slices/burgerConstructor/burgerConstructorSlice';
+import { userSelector } from '../../services/slices/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {

@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
 import { useSelector } from '../../services/store';
-import { feedSelector } from '../../services/slices/feedSlice';
+import { feedSelector } from '../../services/slices/feed/feedSlice';
 
 type TFeed = { total?: number; totalToday?: number };
 
