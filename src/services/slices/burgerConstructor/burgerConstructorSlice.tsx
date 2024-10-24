@@ -17,7 +17,7 @@ export const orderBurger = createAsyncThunk(
   async (data: string[]) => orderBurgerApi(data)
 );
 
-type TBurgerConstructorState = {
+export type TBurgerConstructorState = {
   constructorItems: {
     bun?: {
       price: number;
@@ -30,7 +30,7 @@ type TBurgerConstructorState = {
   orderByNumber?: TOrder | null;
   error?: string | null;
 };
-const initialState: TBurgerConstructorState = {
+export const initialState: TBurgerConstructorState = {
   constructorItems: {
     ingredients: []
   },
@@ -44,7 +44,10 @@ export const burgerConstructorSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: {
-      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+      reducer: (
+        state: TBurgerConstructorState,
+        action: PayloadAction<TConstructorIngredient>
+      ) => {
         if (action.payload.type === 'bun') {
           state.constructorItems.bun = action.payload;
         } else {

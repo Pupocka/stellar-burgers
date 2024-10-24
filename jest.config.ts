@@ -3,22 +3,9 @@
  * https://jestjs.io/docs/configuration
  */
 
-// import type { Config } from 'jest';
-import type { JestConfigWithTsJest } from 'ts-jest';
+import type {Config} from 'jest';
 
-const config: JestConfigWithTsJest = {
-  preset: 'ts-jest',
-  transform: {
-    // '^.+\\.[tj]sx?$' для обработки файлов js/ts с помощью `ts-jest`
-    // '^.+\\.m?[tj]sx?$' для обработки файлов js/ts/mjs/mts с помощью `ts-jest`
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        // настройки для ts-jest
-      }
-    ]
-  },
-
+const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -26,27 +13,28 @@ const config: JestConfigWithTsJest = {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/private/var/folders/zd/l094flgj3hg_byb5bx0qjysm0000gn/T/jest_dx",
+  // cacheDirectory: "C:\\Users\\roman\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances, contexts and results before every test
   // clearMocks: false,
 
   // Indicates whether the coverage information should be collected while executing the test
   collectCoverage: true,
+  preset: 'ts-jest',
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
+  //   "\\\\node_modules\\\\"
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'v8'
+  coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -159,6 +147,12 @@ const config: JestConfigWithTsJest = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
+  testEnvironment: "jsdom",
+  moduleNameMapper: {
+    '^@api$': '<rootDir>/src/utils/burger-api.ts',
+    // '^@utils-types/(.*)$': '<rootDir>/src/utils/types/$1'
+    // Добавьте другие маппинги по мере необходимости
+  },
   // testEnvironment: "jest-environment-node",
 
   // Options that will be passed to the testEnvironment
@@ -175,7 +169,7 @@ const config: JestConfigWithTsJest = {
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
-  //   "/node_modules/"
+  //   "\\\\node_modules\\\\"
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
@@ -192,8 +186,8 @@ const config: JestConfigWithTsJest = {
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
-  //   "/node_modules/",
-  //   "\\.pnp\\.[^\\/]+$"
+  //   "\\\\node_modules\\\\",
+  //   "\\.pnp\\.[^\\\\]+$"
   // ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
