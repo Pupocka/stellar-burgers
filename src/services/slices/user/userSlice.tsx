@@ -73,7 +73,7 @@ type TUserState = {
   userOrders: TOrder[];
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   error: '',
   loading: false,

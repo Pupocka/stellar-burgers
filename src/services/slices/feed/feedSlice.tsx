@@ -5,7 +5,7 @@ import { TOrdersData } from '@utils-types';
 export const getFeed = createAsyncThunk('feed/getAll', async () =>
   getFeedsApi()
 );
-const initialState: TOrdersData = {
+export const initialState: TOrdersData = {
   orders: [],
   total: 0,
   totalToday: 0
