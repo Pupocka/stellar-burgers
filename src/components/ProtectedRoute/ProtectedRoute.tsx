@@ -5,7 +5,7 @@ import { Preloader } from '@ui';
 import {
   isAuthCheckedSelector,
   userSelector
-} from '../../services/slices/userSlice';
+} from '../../services/slices/user/userSlice';
 
 type TProtectedRouteProps = {
   onlyUnAuth?: boolean;

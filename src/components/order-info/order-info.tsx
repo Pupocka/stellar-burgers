@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   getOrderByNumber,
   orderByNumberSelector
-} from '../../services/slices/burgerConstructorSlice';
-import { IngredientsSelector } from '../../services/slices/ingredientsSlice';
+} from '../../services/slices/burgerConstructor/burgerConstructorSlice';
+import { IngredientsSelector } from '../../services/slices/ingredients/ingredientsSlice';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
